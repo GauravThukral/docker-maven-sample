@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-maven-sample
+  labels:
+    app: docker-maven-sample
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: docker-maven-sample
+  template:
+    metadata:
+      labels:
+        app: docker-maven-sample
+    spec:
+      containers:
+        - name: docker-maven-sample
+          image: jerelquay/docker-maven-sample:latest  # Update with correct image tag
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-maven-sample-service
+spec:
+  selector:
+    app: docker-maven-sample
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
