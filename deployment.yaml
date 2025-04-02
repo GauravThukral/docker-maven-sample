@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: docker-maven-sample
-          image: jerelquay/docker-maven-sample:latest  # Update with correct image tag
+          image: gauravthukral/demo:latest  # Update with correct image tag
           ports:
             - containerPort: 8080
           resources:
